@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #fafafa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: white;
+            border: 1px solid #dbdbdb;
+            border-radius: 10px;
+            width: 350px;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+        }
+
+        .instagram-logo {
+            width: 200px;
+            margin-bottom: 30px;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-container {
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 10px 10px 10px 40px;
+            border: 1px solid #dbdbdb;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8e8e8e;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #262626;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .login-button {
+            background-color: #0095f6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            font-weight: 600;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .login-button:disabled {
+            background-color: #b2dffc;
+            cursor: not-allowed;
+        }
+
+        .forgot-password {
+            color: #0095f6;
+            text-decoration: none;
+            margin-top: 15px;
+            font-size: 12px;
+        }
+
+        .signup-link {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #262626;
+        }
+
+        .signup-link a {
+            color: #0095f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <img src="https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a252de00b20.png" 
+             alt="Instagram" class="instagram-logo">
+        
+        <form id="loginForm" class="login-form">
+            <div class="input-container">
+                <i class="input-icon">👤</i>
+                <input 
+                    type="text" 
+                    id="username" 
+                    class="login-input" 
+                    placeholder="Username" 
+                    required
+                >
+            </div>
+            
+            <div class="input-container">
+                <i class="input-icon">🔒</i>
+                <input 
+                    type="password" 
+                    id="password" 
+                    class="login-input" 
+                    placeholder="Password" 
+                    required
+                >
+                <span id="passwordToggle" class="password-toggle">Show</span>
+            </div>
+            
+            <div id="errorMessage" class="error-message">
+                Invalid username or password
+            </div>
+            
+            <button 
+                type="submit" 
+                id="loginButton" 
+                class="login-button" 
+                disabled
+            >
+                Log In
+            </button>
+        </form>
+        
+        <a href="#" class="forgot-password">Forgot password?</a>
+        
+        <div class="signup-link">
+            Don't have an account? 
+            <a href="#">Sign up</a>
+        </div>
+    </div>
+
+    <script>
+        // Get DOM elements
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const loginButton = document.getElementById('loginButton');
+        const passwordToggle = document.getElementById('passwordToggle');
+        const errorMessage = document.getElementById('errorMessage');
+        const loginForm = document.getElementById('loginForm');
+
+        // Enable login button when both fields have content
+        function validateInputs() {
+            if (usernameInput.value.length > 0 && passwordInput.value.length > 0) {
+                loginButton.disabled = false;
+            } else {
+                loginButton.disabled = true;
+            }
+        }
+
+        // Toggle password visibility
+        passwordToggle.addEventListener('click', () => {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordToggle.textContent = 'Hide';
+            } else {
+                passwordInput.type = 'password';
+                passwordToggle.textContent = 'Show';
+            }
+        });
+
+        // Input event listeners
+        usernameInput.addEventListener('input', validateInputs);
+        passwordInput.addEventListener('input', validateInputs);
+
+        // Login form submission
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Simulate login validation
+            const username = usernameInput.value;
+            const password = passwordInput.value;
+
+            // Simulated credentials (in a real app, this would be a secure backend check)
+            const validUsername = 'instagram';
+            const validPassword = 'password123';
+
+            if (username === validUsername && password === validPassword) {
+                // Successful login
+                alert('Login Successful! Welcome to Instagram.');
+                // In a real app, you would redirect to the main page
+                // window.location.href = '/dashboard';
+            } else {
+                // Failed login
+                errorMessage.style.display = 'block';
+                
+                // Hide error after 3 seconds
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
